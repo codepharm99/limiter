@@ -19,7 +19,7 @@ export function Onboarding() {
   const [step, setStep] = useState(1)
   const finish = () => {
     markOnboarded()
-    navigate('/', { replace: true })
+    navigate('/app', { replace: true })
   }
   const changeStep = (next: number) => {
     setStep(next)

@@ -1,10 +1,58 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useLocale, useT, type Locale } from '../i18n'
+import { isAnonymousUser } from '../lib/auth'
+import { signOut } from '../lib/account'
+import { supabase } from '../lib/supabase'
 import { setSoundsEnabled, soundsEnabled } from '../lib/sounds'
 import { Modal, useAnimatedClose } from '../ui/Modal'
 import { SelectMenu } from '../ui/SelectMenu'
+import { usePro } from '../data/useSubscription'
 
-/** Settings shell: language and sound effects; more settings land later. */
+function AccountSection() {
+  const t = useT()
+  const navigate = useNavigate()
+  const { pro, subscription } = usePro()
+  const [email, setEmail] = useState<string | null>(null)
+  const [anonymous, setAnonymous] = useState(false)
+
+  useEffect(() => {
+    let alive = true
+    supabase.auth.getUser().then(({ data }) => {
+      if (!alive) return
+      setAnonymous(isAnonymousUser(data.user))
+      setEmail(data.user?.email ?? null)
+    })
+    return () => { alive = false }
+  }, [])
+
+  const label = anonymous ? t('settings.anonymous') : email ?? ''
+  return (
+    <div className="mt-4 rounded-2xl bg-bg px-3.5 py-3">
+      <p className="text-sm font-medium">{t('settings.account')}</p>
+      <p className="mt-0.5 truncate text-xs text-text-2">{label}</p>
+      <p className="mt-0.5 text-xs text-text-2">
+        {pro
+          ? `✓ Pro${subscription?.status === 'canceled' ? ` · ${t('pro.renewalOff')}` : ''}`
+          : t('pro.free')}
+      </p>
+      <div className="mt-3 flex items-center justify-between gap-2">
+        {anonymous
+          ? (
+            <button type="button" onClick={() => navigate('/auth')} className="text-sm text-accent underline underline-offset-2">
+              {t('auth.upgradeSubmit')}
+            </button>
+          )
+          : <span />}
+        <button type="button" onClick={async () => { await signOut(); navigate('/auth') }} className="text-sm text-text-2 underline underline-offset-2 hover:text-text">
+          {t('settings.signOut')}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+/** Settings shell: language, sounds, account and Pro state. */
 export function SettingsModal({ onClose }: { onClose: () => void }) {
   const t = useT()
   const [locale, setLocale] = useLocale()
@@ -40,6 +88,7 @@ export function SettingsModal({ onClose }: { onClose: () => void }) {
           <span className="switch__thumb" />
         </span>
       </button>
+      <AccountSection />
     </Modal>
   )
 }
