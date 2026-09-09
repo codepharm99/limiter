@@ -1,0 +1,45 @@
+:root {
+  --fog-highlight: #FFFFFF;
+  --fog-midtone: #FFFFFF;
+  --fog-lowlight: #FFFFFF;
+  --fog-base: #FFFFFF;
+  --bg: #FFFFFF;
+  --bg-deep: #F2F6F7;
+  --card: #FFFFFF;
+  --text: #273437;
+  --text-2: #607076;
+  --on-accent: #FFFFFF;
+  --muted: #DCE5E7;
+  --accent: #7497A1;
+  --break: #587982;
+  --success: #397866;
+  --danger: #E25C5C;
+  --timer-face: #FFFFFF;
+  --glass: rgba(255, 255, 255, 0.86);
+  --glass-border: rgba(255, 255, 255, 0.95);
+  --surface-shadow: rgba(67, 91, 98, 0.12);
+  --glass-soft: rgba(255, 255, 255, 0.58);
+  --glass-highlight: rgba(255, 255, 255, 0.92);
+  --glass-lowlight: rgba(116, 151, 161, 0.13);
+  --glass-shadow: rgba(67, 91, 98, 0.16);
+  --scrim: rgba(39, 52, 55, 0.5);
+  --act-0: #EEF3F4;
+  --act-1: #D4E0E3;
+  --act-2: #ABC1C7;
+  --act-3: #7497A1;
+  --act-4: #496E78;
+}
+
+:root {
+  --action-bg: #242629;
+  --action-hover: #3b3e43;
+  --action-border: #d8dce3;
+  --action-danger: #b33d38;
+  --action-disabled-bg: #e3e6ec;
+  --action-disabled-text: #727986;
+  --button-radius: 999px;
+  --button-height: 44px;
+  --button-height-lg: 52px;
+  --button-text: 14px;
+  --button-text-lg: 16px;
+}

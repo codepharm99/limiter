@@ -1,0 +1,33 @@
+/* Completion uses the same quiet form language as the rest of the app. */
+.energy-options {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 9px;
+}
+.energy-option {
+  display: grid;
+  min-width: 0;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid var(--muted);
+  border-radius: 9px;
+  background: var(--card);
+  color: var(--text-2);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.energy-option:hover { border-color: var(--accent); color: var(--text); }
+.energy-option[aria-pressed='true'] { border-color: var(--accent); background: var(--accent); color: var(--on-accent); }
+.complete-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+@media (max-width: 374px) {
+  .energy-options { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .complete-actions { flex-direction: column-reverse; }
+  [role="dialog"] .modal-solid { padding: 16px; }
+}
