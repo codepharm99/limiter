@@ -1,0 +1,22 @@
+node_modules
+dist
+tmp/
+.tmp/
+*.tmp
+.env
+.env.*
+!.env.example
+test-results
+playwright-report
+.superpowers/
+.agents/
+.playwright-cli/
+output/
+docs/
+.github/
+{{pkgetc}}/
+# Homebrew-generated files must stay outside the repository.
+/opt/homebrew/
+.DS_Store
+*.pem
+*.tsbuildinfo

@@ -1,0 +1,41 @@
+.landing-page { min-height:100dvh; background:#fbfcfc; color:#273437; font-family:var(--font-body); }
+.landing-nav { position:relative; z-index:5; display:flex; align-items:center; justify-content:space-between; padding:20px 30px; background:rgba(251,252,252,.94); }
+.landing-brand { display:flex; align-items:center; gap:10px; color:#273437; font-family:var(--font-display); font-size:16px; font-weight:760; text-decoration:none; }
+.landing-mark { width:23px; height:23px; background:#273437; clip-path:polygon(0 34%,44% 0,44% 72%,100% 72%,100% 100%,0 100%); }
+.landing-nav-actions { display:flex; align-items:center; gap:10px; }
+.landing-icon-button { display:grid; width:34px; height:34px; place-items:center; border:0; border-radius:50%; background:transparent; color:#526267; cursor:pointer; text-decoration:none; transition:background .16s ease,color .16s ease; }
+.landing-icon-button:hover,.landing-icon-button:focus-visible,.landing-icon-button[aria-expanded=true] { background:#edf2f3; color:#273437; outline:none; }
+.landing-language { position:relative; }
+.landing-language-menu { position:absolute; z-index:10; top:43px; right:-5px; width:142px; padding:5px; border:0; border-radius:10px; background:rgba(251,252,252,.98); box-shadow:0 14px 34px rgba(39,52,55,.14); backdrop-filter:blur(16px); }
+.landing-language-option { display:flex; width:100%; min-height:35px; align-items:center; padding:8px 10px; border:0; border-radius:7px; background:transparent; color:#66767a; font:600 12px/1.2 var(--font-body); text-align:left; cursor:pointer; }
+.landing-language-option:hover,.landing-language-option:focus-visible { background:#edf2f3; color:#273437; outline:none; }
+.landing-language-option.is-current { color:#273437; font-weight:750; }
+.landing-signin { padding:9px 8px; color:#273437; font-size:12px; font-weight:650; text-decoration:none; }
+.landing-open { padding:9px 15px; border-radius:999px; background:#273437; color:#fff; font-size:12px; font-weight:680; text-decoration:none; }
+.landing-hero { position:relative; isolation:isolate; min-height:clamp(560px,72vh,760px); display:grid; place-items:center; overflow:hidden; padding:82px 26px; text-align:center; background:#172023 url('/landing/limiter-montage-poster.jpg') center/cover no-repeat; }
+.landing-video { position:absolute; z-index:0; inset:0; width:100%; height:100%; object-fit:cover; filter:saturate(.76) contrast(1.08); opacity:0; pointer-events:none; }
+.landing-video.is-visible { opacity:1; }
+.landing-video-play { position:absolute; z-index:4; right:24px; bottom:24px; display:grid; width:46px; height:46px; place-items:center; padding:0; border:1px solid rgba(255,255,255,.55); border-radius:10px; background:rgba(24,34,36,.48); color:#fff; box-shadow:0 8px 24px rgba(0,0,0,.2); backdrop-filter:blur(10px); cursor:pointer; transition:background .16s ease,transform .16s ease; }
+.landing-video-icon { display:block; }
+.landing-video-icon.is-play { width:0; height:0; margin-left:3px; border-top:7px solid transparent; border-bottom:7px solid transparent; border-left:12px solid currentColor; }
+.landing-video-icon.is-pause { width:12px; height:14px; margin-left:0; border-left:4px solid currentColor; border-right:4px solid currentColor; }
+.landing-video-play:hover,.landing-video-play:focus-visible { background:rgba(24,34,36,.72); transform:scale(1.06); outline:none; }
+.landing-hero::before { content:""; position:absolute; z-index:1; inset:0; background:linear-gradient(180deg,rgba(12,18,20,.34),rgba(12,18,20,.5)); }
+.landing-hero::after { content:""; position:absolute; z-index:2; inset:-40%; pointer-events:none; opacity:.72; background:url('/landing/grain.png') repeat; mix-blend-mode:soft-light; animation:landing-grain .1s steps(2) infinite; }
+@keyframes landing-grain { 0%{transform:translate(0,0)}25%{transform:translate(3%,-2%)}50%{transform:translate(-2%,3%)}75%{transform:translate(2%,2%)}100%{transform:translate(-3%,-1%)} }
+.landing-hero-content { position:relative; z-index:3; max-width:760px; color:#fff; text-shadow:0 2px 24px rgba(0,0,0,.22); }
+.landing-hero h1 { margin:0 0 18px; font-size:clamp(48px,7vw,80px); line-height:.94; letter-spacing:-.066em; }
+.landing-hero h1 span { display:inline; }
+.landing-hero p { max-width:510px; margin:0 auto; color:rgba(255,255,255,.86); font-size:16px; line-height:1.55; }
+.landing-actions { display:flex; justify-content:center; gap:10px; margin-top:29px; }
+.landing-button { display:inline-block; padding:12px 19px; border-radius:999px; font-size:13px; font-weight:680; text-decoration:none; }
+.landing-button-primary { background:#273437; color:#fff; }
+.landing-button-secondary { border:1px solid #d7e0e2; color:#273437; background:#fff; }
+.landing-hero .landing-button-primary { background:#fff; color:#273437; }
+.landing-hero .landing-button-secondary { border-color:rgba(255,255,255,.54); color:#fff; background:rgba(255,255,255,.08); backdrop-filter:blur(8px); }
+.landing-final { padding:78px 28px; text-align:center; }
+.landing-final h2 { margin:0 0 12px; font-size:39px; letter-spacing:-.05em; }
+.landing-final p { margin:0 0 25px; color:#607076; }
+.landing-footer { display:flex; justify-content:space-between; padding:22px 29px; border-top:1px solid #e3eaec; color:#607076; font-size:11px; }
+@media(max-width:760px){.landing-nav{padding:17px 19px}.landing-brand span:last-child,.landing-signin{display:none}.landing-hero{min-height:600px;padding:62px 20px}.landing-hero h1{font-size:49px}.landing-footer{gap:15px;flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){.landing-hero::after{animation:none}.landing-video{display:none}.landing-hero{background:#273437 url('/landing/limiter-montage-poster.jpg') center/cover no-repeat}}

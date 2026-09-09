@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" role="img" aria-labelledby="title">
+  <title id="title">Limiter</title>
+  <rect width="200" height="200" fill="#FFFFFF"/>
+  <path fill="#273437" d="M40 83 103 41v95h57v23H40V83Z"/>
+</svg>

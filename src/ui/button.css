@@ -1,0 +1,56 @@
+/* Quiet, solid actions inspired by the meeting and finance references. */
+.ui-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-shrink: 0;
+  min-height: var(--button-height);
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  border-radius: var(--button-radius);
+  font-size: var(--button-text);
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: none;
+}
+.ui-button--primary {
+  background: var(--action-bg);
+  color: var(--on-accent);
+}
+.ui-button--primary:not(:disabled):hover { background: var(--action-hover); }
+.ui-button--break {
+  background: var(--break);
+  color: var(--on-accent);
+}
+.ui-button--break:not(:disabled):hover { background: color-mix(in srgb, var(--break), var(--action-bg) 15%); }
+.ui-button--ghost {
+  background: var(--card);
+  border-color: var(--action-border);
+  color: var(--text);
+}
+.ui-button--ghost:not(:disabled):hover { background: var(--bg-deep); }
+.ui-button--danger {
+  background: var(--card);
+  border-color: color-mix(in srgb, var(--action-danger), transparent 55%);
+  color: var(--action-danger);
+}
+.ui-button--danger:not(:disabled):hover {
+  background: color-mix(in srgb, var(--action-danger) 8%, var(--card));
+  border-color: var(--action-danger);
+}
+.ui-button--lg {
+  min-height: var(--button-height-lg);
+  padding-inline: 28px;
+  font-size: var(--button-text-lg);
+}
+.ui-button:disabled {
+  background: var(--action-disabled-bg);
+  border-color: transparent;
+  color: var(--action-disabled-text);
+  cursor: default;
+}
+.ui-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+button.ui-button:not(:disabled):active { transform: scale(.98); }
