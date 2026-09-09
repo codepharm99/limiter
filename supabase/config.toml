@@ -1,0 +1,8 @@
+project_id = "limiter"
+
+# Telegram cannot attach a Supabase JWT, so the gateway must not require one.
+[functions.telegram-webhook]
+verify_jwt = false
+
+[functions.create-checkout]
+verify_jwt = true

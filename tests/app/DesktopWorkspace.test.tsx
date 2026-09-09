@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import App from '../../src/App'
 
 vi.mock('../../src/onboarding/Onboarding', () => ({
@@ -9,6 +10,14 @@ vi.mock('../../src/onboarding/Onboarding', () => ({
 }))
 vi.mock('../../src/lib/auth', () => ({
   ensureSession: vi.fn().mockResolvedValue('test-user'),
+}))
+vi.mock('../../src/lib/supabase', () => ({
+  isSupabaseConfigured: true,
+  supabase: {
+    auth: {
+      onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => undefined } } }),
+    },
+  },
 }))
 vi.mock('../../src/shell/useInteractionSounds', () => ({
   useInteractionSounds: () => undefined,
@@ -42,7 +51,11 @@ afterEach(() => {
 
 describe('desktop workspace composition', () => {
   it('renders the shell and workspace components in order', async () => {
-    render(<MemoryRouter initialEntries={['/app']}><App /></MemoryRouter>)
+    render(
+      <QueryClientProvider client={new QueryClient()}>
+        <MemoryRouter initialEntries={['/app']}><App /></MemoryRouter>
+      </QueryClientProvider>,
+    )
 
     const topBar = await screen.findByTestId('topbar')
     const shell = document.querySelector('.app-shell')

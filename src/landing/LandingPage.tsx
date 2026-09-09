@@ -125,7 +125,6 @@ export function LandingPage() {
               {languages.map((language) => <button className={`landing-language-option${language.id === locale ? ' is-current' : ''}`} key={language.id} type="button" role="menuitem" onClick={() => { setLocale(language.id); setMenuOpen(false) }}>{language.label}</button>)}
             </div>}
           </div>
-          <Link className="landing-signin" to="/auth">{t.signIn}</Link>
           <Link className="landing-open" to="/app">{t.openApp}</Link>
         </div>
       </nav>

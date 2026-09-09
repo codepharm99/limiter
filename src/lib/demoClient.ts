@@ -3,8 +3,8 @@ import { isoDate } from '../domain/week'
 /**
  * In-memory Supabase stand-in with generated demo history, dev only. It speaks
  * the subset of the query builder the app uses: select/insert/update/delete,
- * eq/is/gte/lt filters, order, limit, single/maybeSingle, and the three auth
- * calls in lib/auth.ts and the data hooks.
+ * eq/is/gte/lt filters, order, limit, single/maybeSingle, the three auth calls
+ * in lib/auth.ts, the account ops in lib/account.ts, and functions.invoke.
  */
 
 type Row = Record<string, unknown>
@@ -241,13 +241,41 @@ class Builder {
 export function demoClient() {
   const db = seed()
   let seq = 0
-  const user = { id: DEMO_USER }
+  let signedOut = false
+  let user = { id: DEMO_USER, email: null as string | null, is_anonymous: true }
+  const listeners = new Set<(event: string) => void>()
+  const emit = (event: string) => listeners.forEach((l) => l(event))
+  const back = () => {
+    signedOut = false
+    return { data: { user }, error: null }
+  }
   return {
     from: (table: string) => new Builder(db, table, () => `demo-gen-${++seq}`),
+    functions: {
+      invoke: async () => ({ data: { url: 'https://t.me/demo-invoice' }, error: null }),
+    },
     auth: {
       getUser: async () => ({ data: { user }, error: null }),
-      getSession: async () => ({ data: { session: { user } }, error: null }),
-      signInAnonymously: async () => ({ data: { user }, error: null }),
+      getSession: async () => ({ data: { session: signedOut ? null : { user } }, error: null }),
+      signInAnonymously: back,
+      signInWithPassword: back,
+      signUp: back,
+      updateUser: async ({ email, password }: { email?: string; password?: string }) => {
+        user = { ...user, email: email ?? user.email, is_anonymous: false }
+        void password
+        emit('USER_UPDATED')
+        return { data: { user }, error: null }
+      },
+      resetPasswordForEmail: async () => ({ data: {}, error: null }),
+      signOut: async () => {
+        signedOut = true
+        emit('SIGNED_OUT')
+        return { error: null }
+      },
+      onAuthStateChange: (cb: (event: string) => void) => {
+        listeners.add(cb)
+        return { data: { subscription: { unsubscribe: () => listeners.delete(cb) } } }
+      },
     },
   }
 }
