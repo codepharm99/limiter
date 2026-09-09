@@ -12,6 +12,7 @@ vi.mock('../../src/lib/auth', () => ({
   ensureSession: vi.fn().mockResolvedValue('test-user'),
 }))
 vi.mock('../../src/lib/supabase', () => ({
+  isSupabaseConfigured: true,
   supabase: {
     auth: {
       onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => undefined } } }),

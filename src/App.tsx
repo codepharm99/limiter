@@ -4,7 +4,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { Onboarding, ONBOARDED_KEY } from './onboarding/Onboarding'
 import { AuthPage } from './auth/AuthPage'
 import { ensureSession } from './lib/auth'
-import { supabase } from './lib/supabase'
+import { isSupabaseConfigured, supabase } from './lib/supabase'
 import { LowerPanel } from './panel/LowerPanel'
 import { TopBar } from './shell/TopBar'
 import { useInteractionSounds } from './shell/useInteractionSounds'
@@ -75,6 +75,7 @@ function ProtectedApp() {
 }
 
 export default function App() {
+  if (!isSupabaseConfigured) return <SetupNotice />
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
@@ -82,5 +83,26 @@ export default function App() {
       <Route path="/app/*" element={<ProtectedApp />} />
       <Route path="/onboarding" element={<Navigate to="/app/onboarding" replace />} />
     </Routes>
+  )
+}
+
+/** Deployment is missing VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY. */
+function SetupNotice() {
+  return (
+    <main className="min-h-dvh bg-bg text-text grid place-items-center px-4">
+      <div className="max-w-sm rounded-3xl bg-card p-6 text-center">
+        <h1 className="text-xl font-semibold">Configuration problem / Ошибка конфигурации</h1>
+        <p className="mt-2 text-sm text-text-2">
+          The deployment has no Supabase environment variables. Set{' '}
+          <code className="text-accent">VITE_SUPABASE_URL</code> and{' '}
+          <code className="text-accent">VITE_SUPABASE_ANON_KEY</code> and redeploy.
+        </p>
+        <p className="mt-2 text-sm text-text-2">
+          В деплое не заданы переменные Supabase. Добавьте{' '}
+          <code className="text-accent">VITE_SUPABASE_URL</code> и{' '}
+          <code className="text-accent">VITE_SUPABASE_ANON_KEY</code> в настройках хостинга и сделайте новый деплой.
+        </p>
+      </div>
+    </main>
   )
 }
